@@ -1,6 +1,6 @@
 ﻿namespace AluCarWepApi.Enums
 {
-    public enum ECarModel : byte
+    public enum EVehicleType 
     {
         Hatch = 1,
         Sedan, 
