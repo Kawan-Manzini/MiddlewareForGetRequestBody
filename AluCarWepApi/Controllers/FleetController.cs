@@ -11,20 +11,20 @@ namespace AluCarWepApi.Controllers
         public static List<Fleet> DB_FleetS { get; set; } = new List<Fleet>();
         public FleetController() { }
 
-        [HttpGet("Fleets")]
+        [HttpGet("")]
         public List<Fleet> GetAll()
         {
             return DB_FleetS;
         }
 
 
-        [HttpGet("Fleets/{id}")]
+        [HttpGet("{id}")]
         public Fleet GetAll(Guid id)
         {
             return DB_FleetS.FirstOrDefault(_ => _.Id == id);
         }
 
-        [HttpPost("Fleets")]
+        [HttpPost("")]
         public Fleet Add([FromBody] Fleet Fleet) 
         {
             DB_FleetS.Add(Fleet);
@@ -32,7 +32,7 @@ namespace AluCarWepApi.Controllers
         }
 
 
-        [HttpPut("Fleets")]
+        [HttpPut("")]
         public Fleet Update([FromBody] Fleet Fleet) 
         {
             var curFleetValue = DB_FleetS.FirstOrDefault(_ => _.Id == Fleet.Id);
@@ -43,7 +43,7 @@ namespace AluCarWepApi.Controllers
             return Fleet;
         }
         
-        [HttpDelete("Fleets/{id}")]
+        [HttpDelete("{id}")]
         public string Delete(Guid id) 
         {
             var curFleetValue = DB_FleetS.FirstOrDefault(_ => _.Id == id);

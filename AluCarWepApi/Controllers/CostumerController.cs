@@ -11,20 +11,20 @@ namespace AluCarWepApi.Controllers
         public static List<Costumer> DB_CostumerS { get; set; } = new List<Costumer>();
         public CostumerController() { }
 
-        [HttpGet("Costumers")]
+        [HttpGet("")]
         public List<Costumer> GetAll()
         {
             return DB_CostumerS;
         }
 
 
-        [HttpGet("Costumers/{id}")]
+        [HttpGet("{id}")]
         public Costumer GetAll(Guid id)
         {
             return DB_CostumerS.FirstOrDefault(_ => _.Id == id);
         }
 
-        [HttpPost("Costumers")]
+        [HttpPost("")]
         public Costumer Add([FromBody] Costumer Costumer) 
         {
             DB_CostumerS.Add(Costumer);
@@ -32,7 +32,7 @@ namespace AluCarWepApi.Controllers
         }
 
 
-        [HttpPut("Costumers")]
+        [HttpPut("")]
         public Costumer Update([FromBody] Costumer Costumer) 
         {
             var curCostumerValue = DB_CostumerS.FirstOrDefault(_ => _.Id == Costumer.Id);
@@ -44,7 +44,7 @@ namespace AluCarWepApi.Controllers
             return Costumer;
         }
         
-        [HttpDelete("Costumers/{id}")]
+        [HttpDelete("{id}")]
         public string Delete(Guid id) 
         {
             var curCostumerValue = DB_CostumerS.FirstOrDefault(_ => _.Id == id);

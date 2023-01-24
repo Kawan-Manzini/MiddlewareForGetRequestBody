@@ -11,20 +11,20 @@ namespace AluCarWepApi.Controllers
         public static List<Vehicle> DB_VEHICLES { get; set; } = new List<Vehicle>();
         public VehicleController() { }
 
-        [HttpGet("vehicles")]
+        [HttpGet("")]
         public List<Vehicle> GetAll()
         {
             return DB_VEHICLES;
         }
 
 
-        [HttpGet("vehicles/{id}")]
+        [HttpGet("{id}")]
         public Vehicle GetAll(Guid id)
         {
             return DB_VEHICLES.FirstOrDefault(_ => _.Id == id);
         }
 
-        [HttpPost("vehicles")]
+        [HttpPost("")]
         public Vehicle Add([FromBody] Vehicle vehicle) 
         {
              DB_VEHICLES.Add(vehicle);
@@ -32,7 +32,7 @@ namespace AluCarWepApi.Controllers
         }
 
 
-        [HttpPut("vehicles")]
+        [HttpPut("")]
         public Vehicle Update([FromBody] Vehicle vehicle) 
         {
             var currentValue = DB_VEHICLES.FirstOrDefault(_ => _.Id == vehicle.Id);
@@ -45,7 +45,7 @@ namespace AluCarWepApi.Controllers
             return vehicle;
         }
         
-        [HttpDelete("vehicles/{id}")]
+        [HttpDelete("{id}")]
         public string Delete(Guid id) 
         {
             var currentValue = DB_VEHICLES.FirstOrDefault(_ => _.Id == id);

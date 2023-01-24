@@ -1,3 +1,4 @@
+using AluCarWepApi.Enums;
 using AluCarWepApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -11,20 +12,20 @@ namespace AluCarWepApi.Controllers
         public static List<Rent> DB_RENTS { get; set; } = new List<Rent>();
         public RentController() { }
 
-        [HttpGet("Rents")]
+        [HttpGet("")]
         public List<Rent> GetAll()
         {
             return DB_RENTS;
         }
 
 
-        [HttpGet("Rents/{id}")]
+        [HttpGet("/{id}")]
         public Rent GetAll(Guid id)
         {
             return DB_RENTS.FirstOrDefault(_ => _.Id == id);
         }
 
-        [HttpPost("Rents")]
+        [HttpPost("")]
         public Rent Add([FromBody] Rent Rent) 
         {
             DB_RENTS.Add(Rent);
@@ -32,7 +33,7 @@ namespace AluCarWepApi.Controllers
         }
 
 
-        [HttpPut("Rents")]
+        [HttpPut("")]
         public Rent Update([FromBody] Rent Rent) 
         {
             var currentValue = DB_RENTS.FirstOrDefault(_ => _.Id == Rent.Id);
@@ -46,7 +47,7 @@ namespace AluCarWepApi.Controllers
             return Rent;
         }
         
-        [HttpDelete("Rents/{id}")]
+        [HttpDelete("{id}")]
         public string Delete(Guid id) 
         {
             var currentValue = DB_RENTS.FirstOrDefault(_ => _.Id == id);
@@ -61,6 +62,14 @@ namespace AluCarWepApi.Controllers
             return $"{id} removido!";
         }
 
+        [HttpGet("GetAvailableCars")]
+        public List<Vehicle> GetAvailableCars(DateTime dtBegin, DateTime dtEnd, EVehicleType type)
+        {
+            var cars = VehicleController.DB_VEHICLES.Where(_ => _.Type == type);
+            var items = DB_RENTS.Where(_ => (_.DtBegin < dtBegin && dtEnd <= _.DtBegin) || (_.DtEnd <= dtBegin && dtEnd <= _.DtEnd)).ToList();
+
+            return cars.Where(c => items.Any(_ => _.VehicleId == c.Id)).ToList();
+        }
 
 
     }

@@ -11,20 +11,20 @@ namespace AluCarWepApi.Controllers
         public static List<Store> DB_StoreS { get; set; } = new List<Store>();
         public StoreController() { }
 
-        [HttpGet("Stores")]
+        [HttpGet("")]
         public List<Store> GetAll()
         {
             return DB_StoreS;
         }
 
 
-        [HttpGet("Stores/{id}")]
+        [HttpGet("{id}")]
         public Store GetAll(Guid id)
         {
             return DB_StoreS.FirstOrDefault(_ => _.Id == id);
         }
 
-        [HttpPost("Stores")]
+        [HttpPost("createStore")]
         public Store Add([FromBody] Store Store) 
         {
             DB_StoreS.Add(Store);
@@ -32,12 +32,12 @@ namespace AluCarWepApi.Controllers
         }
 
 
-        [HttpPut("Stores")]
+        [HttpPut("")]
         public Store Update([FromBody] Store Store) 
         {
             var curStoreValue = DB_StoreS.FirstOrDefault(_ => _.Id == Store.Id);
             if(curStoreValue != null)
-            {
+            {   
                 curStoreValue.CNPJ = Store.CNPJ;
                 curStoreValue.Name = Store.Name;
                 curStoreValue.ZipCode = Store.ZipCode;
@@ -45,7 +45,7 @@ namespace AluCarWepApi.Controllers
             return Store;
         }
         
-        [HttpDelete("Stores/{id}")]
+        [HttpDelete("{id}")]
         public string Delete(Guid id) 
         {
             var curStoreValue = DB_StoreS.FirstOrDefault(_ => _.Id == id);
